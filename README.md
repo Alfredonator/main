@@ -1,7 +1,7 @@
 # Potato, radish and lemon picker.
 ## Authors: students from Aalborg University.
 
-This project is plan for a bachellor project during the 6th semester. Authors of this project are:
+This project is plan for a bachelor project during the 6th semester. Authors of this project are:
  - Demitrova, Demira
  - Gabryel, Szymon
  - Haraszczuk, Alicja
@@ -13,7 +13,7 @@ This project has been done in collaboration with Aalborg University IoT Super pr
 ## Installation of dependencies.
 The system is based on Robotic Operating System (ROS) and several developed packages need to be download to make the system run.
 
-Dependecies that have to be installed are.
+Dependencies that have to be installed are.
 
  - [Ubuntu](https://releases.ubuntu.com/18.04/) 18.04 on bare metal. VM will cuase issues with reading information from the cameras.
  - [ROS Melodic](http://wiki.ros.org/melodic/Installation/Ubuntu) Desktop full installation mode.
@@ -70,6 +70,15 @@ Server/Computer and the robot raspberry pi need to have their clocks synchronize
 Camera top (camera with serial_no = f0190391) is situated 70CM above the robotic work-space.
 Camera side (camera with serial_no = f0191108) is situated at 2m of the robot and captures the workspace.
 
+##### Network
+
+All machines requires a static IP address.
+
+ - IoT controller IP: 10.42.0.2
+ - Server IP: 10.42.0.1
+ - eDO raspberry Pi: 10.42.0.49
+
+Each devices needs a unique hostname in the network. Be aware that IoT controller and eDO raspberry Pi are two Raspberry Pi's and will have hostname set up to Raspberry in case of fresh installation.
 
 ## Running the System
 Before running the system there are different steps to be done.
@@ -78,7 +87,7 @@ Before running the system there are different steps to be done.
  - Calibrate TOP camera
  - Calirbate SIDE camera
 
-Every time we execute any ROS package or we want to use any ROS command and check the status of our ROS master node we need to declare ROS_MASTER_URI and ROS_IP to point the Robot RaspberryPi. This can be done with the next lines:
+Every time we execute any ROS package, or we want to use any ROS command and check the status of our ROS master node we need to declare ROS_MASTER_URI and ROS_IP to point the Robot RaspberryPi. This can be done with the next lines:
 
 ```
 cd ~/catkin_ws
@@ -98,7 +107,7 @@ roslaunch edo_control calibrate.launch
 This launches a calibration node. After several seconds the robot joints should be able to be moved with the keyboard arrows. Pressing `enter` goes to the next joint and `-` goes to previous.
 
 ##### Calibrate TOP or SIDE camera
-Launch the single camera node so it publishes the RGB-D feed to ROS.
+Launch the single camera node, so it publishes the RGB-D feed to ROS.
 
 For camera top: 
 ```
@@ -115,7 +124,7 @@ roslaunch edo_moveit_gripper demo.launch
 ```
 Follow [MoveIt Calibration Tutorial](https://ros-planning.github.io/moveit_tutorials/doc/hand_eye_calibration/hand_eye_calibration_tutorial.html) and calibrate the camera. Some notes:
  - Print ChArUco
- - During Context/Object frame, the ChArUco wont be notizable until the board is been seen by the camera.
+ - During Context/Object frame, the ChArUco won't be notable until the board is been seen by the camera.
  - Calibration can be obtained after 5 samplings. But at least 30 samplings are recommended.
 
 Once the calibration is done, click `Save camera pose` and override the corresponding pose in the package [Main]/src/[top/side]_camera_pose.launch
@@ -147,8 +156,8 @@ roslaunch main side_camera.launch
 
 ## Known issues/bugs
  - Robot randomly brakes its joints. Source of the issue is unknown.
- - Camera nodes dies after been executed for a while. Real sense node manager have time missmatch with the system. Unable to resolve.
- - System wont always be able to find grasping position and trajectories. Solution could be to add tolerance when finding positions using the OMPL library.
+ - Camera nodes dies after being executed for a while. Real sense node manager have time mismatch with the system. Unable to resolve.
+ - System won't be always able to find grasping position and trajectories. Solution could be to add tolerance when finding positions using the OMPL library.
  - `rospy.Times.now()` generate timestamps that are 5s ahead of the system internal clock. This could be the cause of the first and second bug.
 
 
