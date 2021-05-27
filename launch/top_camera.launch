@@ -1,0 +1,11 @@
+<launch>
+    <include file="$(find main)/launch/top_camera_pose.launch"/>
+    <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+        <arg name="camera" value="camera_top"/>
+        <arg name="serial_no" value="f0190391"/>
+        <arg name="filters" value="spatial,pointcloud"/>
+        <arg name="initial_reset" value="true"/>
+        <arg name="align_depth" value="true"/>
+    </include>
+    <node name="camera_node" pkg="camera_node_v4" type="camera_node.py" respawn="true"/>
+</launch>

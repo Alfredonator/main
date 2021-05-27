@@ -1,0 +1,5 @@
+<launch>
+    <include file="$(find edo_moveit_gripper)/launch/demo.launch"/>
+    <node name="decision_making" pkg="decision_making_pipeline" type="decision_making.py" respawn="true" output="screen"/>
+    <node name="environment" pkg="decision_making_pipeline" type="environment.py" output="log"/>
+</launch>

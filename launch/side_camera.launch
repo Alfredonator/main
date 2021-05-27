@@ -1,0 +1,9 @@
+<launch>
+    <include file="$(find main)/launch/side_camera_pose.launch"/>
+    <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+        <arg name="camera" value="camera_side"/>
+        <arg name="serial_no" value="f0191108"/>
+        <arg name="filters" value="spatial,pointcloud"/>
+        <arg name="initial_reset" value="true"/>
+    </include>
+</launch>
